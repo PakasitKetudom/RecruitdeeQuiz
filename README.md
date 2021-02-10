@@ -1,1 +1,3 @@
-"# RecruitdeeQuiz" 
+RecruitdeeQuiz
+
+npm start
