@@ -1,77 +1,89 @@
 <!DOCTYPE html>
 <html>
-<style>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <style>
     * {
-        box-sizing: border-box;
-        margin: 0;
+      box-sizing: border-box;
+      margin: 0;
     }
 
     .Row {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
+      display: table;
+      width: 100%;
+      table-layout: fixed;
     }
 
     .Column1 {
-        display: table-cell;
-        width: 200px;
+      display: table-cell;
+      width: 200px;
     }
 
     .Column2 {
-        display: table-cell;
-        width: auto;
+      display: table-cell;
+      width: auto;
     }
 
     .Column3 {
-        display: table-cell;
-        width: 300px;
+      display: table-cell;
+      width: 300px;
     }
     @media (max-width: 600px) {
-    body {
+      body {
         overflow: scroll;
+      }
     }
-}
-</style>
-<div class="Row">
-    <div class="Column1"><input id="number" value="" onkeyup="checkNumber(), calculate()" /></div>
+  </style>
+  <div class="Row">
+    <div class="Column1">
+      <input id="number" value="" onkeyup="checkNumber(), calculate()" />
+    </div>
     <div class="Column2">
-        <select id="selectValue" onchange="calculate()">
-            <option value="isPrime">isPrime</option>
-            <option value="isFibonacci">isFibonacci</option>
-        </select>
+      <select id="selectValue" onchange="calculate()">
+        <option value="isPrime">isPrime</option>
+        <option value="isFibonacci">isFibonacci</option>
+      </select>
     </div>
     <div class="Column3">
-        <p id="result"></p>
+      <p id="result"></p>
     </div>
-</div>
-
+  </div>
 </html>
 
 <script>
-    const numberInput = document.getElementById("number");
-    const result = document.getElementById("result");
-    function checkNumber() {
-        if (isNaN(numberInput.value)) {
-            numberInput.value = 1
-        }
+  const numberInput = document.getElementById("number");
+  const result = document.getElementById("result");
+  function checkNumber() {
+    if (isNaN(numberInput.value)) {
+      numberInput.value = 1;
     }
-    function calculate() {
-        const selectValue = document.getElementById("selectValue");
-        if (numberInput.value == "") {
-            result.innerHTML = "";
-        } else if (selectValue.value == "isPrime") {
-            result.innerHTML = isPrime(parseInt(numberInput.value));
-        } else if (selectValue.value == "isFibonacci") {
-            console.log("isFibonacci");
-            result.innerHTML = true;
-        }
+  }
+  function calculate() {
+    const selectValue = document.getElementById("selectValue");
+    if (numberInput.value == "") {
+      result.innerHTML = "";
+    } else if (selectValue.value == "isPrime") {
+      result.innerHTML = isPrime(parseInt(numberInput.value));
+    } else if (selectValue.value == "isFibonacci") {
+      result.innerHTML = isFibonacci(parseInt(numberInput.value));
     }
-    function isPrime(num) {
-        for (var i = 2; i < num; i++) {
-            if (num % i === 0) {
-                return false;
-            }
-        }
-        return true;
+  }
+  function isPrime(num) {
+    for (var i = 2; i < num; i++) {
+      if (num % i === 0) {
+        return false;
+      }
     }
+    return true;
+  }
+  function isFibonacci(num, count = 1, last = 0) {
+    if (count < num) {
+      return isFibonacci(num, count + last, count);
+    }
+    if (count === num) {
+      return true;
+    }
+    return false;
+  }
 </script>
